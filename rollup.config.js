@@ -1,20 +1,26 @@
 import project from "./package.json";
-import babel from "rollup-plugin-babel";
-import { uglify } from "rollup-plugin-uglify";
+import babel from "@rollup/plugin-babel";
+import commonjs from "@rollup/plugin-commonjs";
+import { terser } from "rollup-plugin-terser";
+import resolve from "@rollup/plugin-node-resolve";
 
 function buildBabelConfig() {
   return {
     babelrc: false,
     presets: [
       [
-        "env",
+        "@babel/preset-env",
         {
-          modules: false,
-          exclude: ["transform-es2015-typeof-symbol"]
+          modules: false
+          // exclude: ["transform-es2015-typeof-symbol"]
         }
       ]
     ],
-    plugins: ["external-helpers"]
+    plugins: [
+      // "external-helpers",
+      "@babel/plugin-proposal-object-rest-spread"
+    ],
+    babelHelpers: "bundled"
   };
 }
 
@@ -28,26 +34,27 @@ function buildConfigBuilder({ name, input, dist = "dist" }) {
     sourceMap = false
   }) => {
     function buildFileName() {
-      return `${name}${includeExtension ? `.${extension}` : ""}${
-        minified ? ".min" : ""
-      }.js`;
+      return `${name}${includeExtension ? `.${extension}` : ""}${minified ? ".min" : ""}.js`;
     }
 
     function buildPlugins() {
-      const plugins = [];
+      const plugins = [resolve(extension === "browser" ? { browser: true } : undefined)];
       if (transpiled) plugins.push(babel(buildBabelConfig()));
-      if (minified) plugins.push(uglify());
+      if (minified) plugins.push(terser());
+      if (format === "cjs") plugins.push(commonjs());
       return plugins;
     }
 
+    console.log(">>", format, buildFileName(), dist);
     return {
       input: input,
       output: {
         name,
         format,
-        file: buildFileName(),
-        dir: dist,
-        sourcemap: sourceMap
+        file: dist + "/" + buildFileName(),
+        // dir: dist,
+        sourcemap: sourceMap,
+        exports: "auto"
       },
       plugins: buildPlugins()
     };

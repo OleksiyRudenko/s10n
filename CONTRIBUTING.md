@@ -77,7 +77,7 @@ Once a new commit appears on `master` it should be tagged
 with the following tags:
 
 - current version (e.g. `v1.0.3`)
-- major version tag (e.g. `v1`) that denotes a major version
+- major version tag that denotes a major version (e.g. `v1-latest`)
   current version belongs to
 - the `latest` tag
 
@@ -89,6 +89,7 @@ Make sure tags are on remote with `git push --tags origin master`.
 
 Run:
 
+- `yarn build` to check if the package distribution builds as expected
 - `yarn login:github-registry` to log in into registry
 - `yarn publish` to build the distribution package
   and publish on npm registry
