@@ -9,6 +9,29 @@ and this project adheres to
 
 <!-- ## [Unreleased] -->
 
+## [0.1.1] - 2021-01-04
+
+### Added
+
+- JSDoc API documentation comments
+- Tests: added test cases to covering `s10n#toNumber` implementation
+- Docs (README.md):
+  - added description for `s10n#keepUsername` and `s10n#keepUsername`
+  - added Development and Publishing section
+- Other:
+  - added testing on CI stage
+  - added GitHub issue and PR templates
+
+### Changed
+
+- Entities: moved email-related charsets to relevant functions
+- Docs (README.md):
+  - changed description for `s10n#toNumber`
+  - made some statements more explicit
+  - fixed typos and grammar
+- Contribution guidelines (CONTRIBUTING.md):
+  - added contribution guidelines
+
 ## [0.1.0] - 2020-10-01
 
 ### Added
@@ -58,4 +81,5 @@ and this project adheres to
 
 <!-- [unreleased]: https://github.com/OleksiyRudenko/s10n/compare/v0.1.0...HEAD -->
 
+[0.1.1]: https://github.com/OleksiyRudenko/s10n/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/OleksiyRudenko/s10n/compare/v0.0.0...v0.1.0

@@ -42,7 +42,7 @@ that better matches input expectations or requirements.
 
 As with validation sanitization, if in place, should
 be applied on both frontend and backend, since a user
-can bypass sanitization and validation on frontend and
+can bypass sanitization and validation on the frontend and
 send input directly to a backend endpoint.
 
 ### Example 1. Username
@@ -53,7 +53,7 @@ The rule is that only a-z, A-Z, numbers, underscore and dash
 are only expected in valid input.
 
 A user submits a string of `#UsEr #$%"' NaMe 5_6-9`.
-Input gets invalidated, the rule gets presented to the user
+Input gets invalidated, the rule gets presented to the user,
 and the user expected to remove all invalid characters.
 The input then becomes a valid string of `UsErNaMe5_6-9`.
 
@@ -209,7 +209,7 @@ semantic sanitizers and custom transformers/sanitizers.
 
 **s10n** treats an extended set of characters, including
 `\x20\u200B\u200C\u200D\u2060\uFEFF\xA0` as whitespaces.
-`\n` and `\r` are not considered whitespaces
+Characters `\n` and `\r` are not considered whitespaces
 when `preserveLineBreaks` modifier applied.
 
 <!-- prettier-ignore -->
@@ -219,9 +219,9 @@ when `preserveLineBreaks` modifier applied.
 - **`mergeLineBreaks()`** - normalizes and merges consequent line breaks
   disregarding the **LineBreak** modifier setting
 - **`normalizeWhitespaces()`** - all whitespaces are
-  converted into space character ` ` (`\x20`)
+  converted into space characters (`\x20`)
 - **`mergeWhitespaces()`** - merges continuous clusters of whitespaces
-  into a single space character ` ` (`\x20`)
+  into a single space character (`\x20`)
 - **`stripWhitespaces()`** - strips all whitespaces from input
 <!-- prettier-ignore-end -->
 
@@ -275,9 +275,9 @@ See also [`normalizeLineBreaks()`](#handle-line-breaks)
 
 - **`normalizeLineBreaks(lineBreakCharacter = undefined)`** -
   transforms CRLF, CR, LF into a line break character defined following the rules below:
-  - as specified by param `lineBreakCharacter`
-  - if param `lineBreakCharacter` is undefined then as set by `setLineBreakCharacter()`
-  - if `setLineBreakCharacter()` wasn't applied then defaults to LF (`'\n'`)
+  - as specified by `lineBreakCharacter` argument
+  - if param `lineBreakCharacter` is undefined, then as set by `setLineBreakCharacter()`
+  - if `setLineBreakCharacter()` wasn't applied, then defaults to LF (`'\n'`)
 - **`normalizeMultiline()`** -
   strips whitespaces that immediately precede
   or follow line break characters;
@@ -315,11 +315,11 @@ specification.
   (RegExp object or regexp body as a string)
 - **`remove(disallowedChars, regexpFlags)`** - remove listed characters
 - **`replace(needle, replacement = "", regexpFlags)`** -
-  replaces needle (a string or RegExp object) with replacement
-  string
+  replaces a needle (which is a string, or a RegExp object)
+  with the replacement string
 
 `regexpFlags` in the methods above is an optional parameter and
-defaults to the falgs as specified in [`_regexp`](#utility-methods) ("gu").
+defaults to the flags as specified in [`_regexp`](#utility-methods) ("gu").
 
 Examples:
 
@@ -400,11 +400,15 @@ Semantic sanitizers implement semantically meaningful
 yet heavily opinionated sanitization rules for particular use cases.
 
 - **`keepOnlyEmailPopularCharset(commonUse = false)`** - by default keeps a charset
-  as per rfc (`A-Za-z0-9_\\-@.+)( \":;<>\\\\,\\[\\]}{!#$%&'*/=?^`|~``);
-  pass `true` if a lesser (more common) charset (`A-Za-z0-9_\-@.+)(`)
+  as per rfc ( `` A-Za-z0-9_\\-@.+)( \":;<>\\\\,\\[\\]}{!#$%&'*/=?^`|~ ``);
+  pass `true` if a lesser (more common) charset ( `A-Za-z0-9_\-@.+)(` )
   fits better your particular use case
-- **`keepUsername(whiteSpaceReplacement = "")`** -
-- **`keepUsernameLC(whiteSpaceReplacement = "")`** -
+- **`keepUsername(whiteSpaceReplacement = "")`** - keeps
+  only `a-zA-Z0-9_-`, whitespaces are stripped or
+  are merged and replaced with `whiteSpaceReplacement` if any
+  specified
+- **`keepUsernameLC(whiteSpaceReplacement = "")`** - same as
+  `keepUsername` but the result is converted to lower case
 
 Examples:
 
@@ -432,16 +436,16 @@ Consider implementing a [customized transformer](#custom-transformations).
 
 ### Custom transformations
 
-Custom transformer is a method to apply complex sanitization
+A custom transformer is a method to apply complex sanitization
 logic using elementary or compound transformers, semantic sanitizers
 or applying a completely unique rule set.
 
-- **`apply(callback, ...arguments)`** - call back will receive
+- **`apply(callback, ...arguments)`** - callback will receive
   current value, calling context (reference to current s10n object as `this`),
   and any extra arguments passed
 - **`extend(methodName, method)`** -
   registers a re-usable custom transformation method
-  - this should be called on `s10n` object itself rather than in
+  - `extend` should be called on `s10n` object itself rather than in
     a sanitization chain
   - the method is accessible at every sanitization chain once registered
   - the method should transform `this.value` and/or call other
@@ -484,11 +488,9 @@ Explicit value access methods:
 - **`value`** - value as is
 - **`toString()`** - same as `.value`
 - **`toNumber()`** - converts sanitized string
-  into a Number. Would work with `keepBase10Digits()`.
-  Use with caution as it will return `NaN`
-  if sanitized string contains anything else
-  but base10 digits, decimal point and single
-  `e` for scientific notation.
+  into a Number. Use with caution as it will return `NaN`
+  if sanitized string contains anything else but a valid
+  [Number literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number).
 
 Examples:
 
@@ -518,5 +520,11 @@ s10n("\t \xA0 ABC\n\t \uFEFF").apply((value, context) =>
   value.replace(context._regexp("\\s"), "-")
 ).value; // "----ABC----"
 ```
+
+[ [^^ Back to TOC ^^](#table-of-contents) ]
+
+## Development and Publishing
+
+Refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
 [ [^^ Back to TOC ^^](#table-of-contents) ]

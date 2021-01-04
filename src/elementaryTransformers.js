@@ -1,3 +1,7 @@
+/**
+ * @typedef { import("./s10n").s10nInstance } s10nInstance
+ */
+
 const elementaryTransformers = {
   trim: function() {
     this.value = this.value.replace(this._regexp("^\\s+|\\s+$"), "");

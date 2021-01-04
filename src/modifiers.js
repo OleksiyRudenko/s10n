@@ -1,3 +1,7 @@
+/**
+ * @typedef { import("./s10n").s10nInstance } s10nInstance
+ */
+
 const modifiers = {
   _modifiers: {
     preserveLineBreaks: false,

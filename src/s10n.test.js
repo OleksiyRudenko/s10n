@@ -172,5 +172,10 @@ describe("type casting", () => {
   });
   it("`toNumber` should return a number", () => {
     expect(s10n("123").toNumber()).toBe(123);
+    expect(s10n("1.23e2").toNumber()).toBe(123);
+    expect(s10n("-123e-2").toNumber()).toBe(-1.23);
+    expect(s10n("0x1A").toNumber()).toBe(26);
+    expect(s10n("1..23e2").toNumber()).toBe(NaN);
+    expect(s10n("-0x1A").toNumber()).toBe(NaN);
   });
 });

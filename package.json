@@ -1,15 +1,14 @@
 {
   "name": "s10n",
-  "version": "0.1.0",
-  "description": "Basic user input sanitation library",
+  "version": "0.1.1",
+  "description": "Basic user input sanitization library",
   "main": "./dist/s10n.cjs.js",
   "module": "./dist/s10n.esm.js",
   "jsdelivr": "./dist/s10n.min.js",
   "unpkg": "./dist/s10n.min.js",
   "files": [
     "dist/",
-    "src/",
-    "docs/"
+    "src/"
   ],
   "scripts": {
     "test": "jest",
@@ -33,7 +32,7 @@
   },
   "keywords": [
     "javascript",
-    "sanitation",
+    "sanitization",
     "library"
   ],
   "author": "Oleksiy Rudenko <oleksiy.rudenko@gmail.com>",
@@ -46,6 +45,7 @@
   },
   "homepage": "https://github.com/OleksiyRudenko/s10n#readme",
   "license": "MIT",
+  "private": false,
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.5",

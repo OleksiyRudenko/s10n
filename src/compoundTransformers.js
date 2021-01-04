@@ -1,3 +1,7 @@
+/**
+ * @typedef { import("./s10n").s10nInstance } s10nInstance
+ */
+
 const compoundTransformers = {
   keepBase10Digits: function() {
     return this.keepOnlyCharset("0-9");

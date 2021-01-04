@@ -1,3 +1,7 @@
+/**
+ * @typedef { import("./s10n").s10nInstance } s10nInstance
+ */
+
 const semanticSanitizers = {
   keepOnlyEmailPopularCharset: function() {
     return this.keepOnlyCharset("A-Za-z0-9_@.-");
