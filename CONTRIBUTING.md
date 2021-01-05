@@ -40,14 +40,21 @@ When changes implemented:
 - run `yarn test` to test the code
 - update `CHANGELOG.md`
 
-Open a pull request to review changes.
+Open a pull request to have the changes reviewed and approved.
 
 Once approved commits in a PR get squashed and
-rebased onto the `master` branch.
+rebased onto or otherwise merged into the `master` branch.
 
 ## Release process
 
-Every commit in master constitutes a new version of the library.
+Every change to the library core codebase
+or its dependencies (e.g. dependency upgrades)
+merged into `master` constitutes a new version
+of the library.
+
+> Changes to the documentation or auxiliary codebase
+> (e.g. sandbox app) may be merged into `master`
+> yet not marked as a release.
 
 This project adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
