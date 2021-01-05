@@ -15,6 +15,7 @@ and subsequent validation an easier job.
 - [Use cases](#use-cases)
   - [Example 1. Username](#example-1-username)
   - [Example 2. Arbitrary text](#example-2-arbitrary-text)
+- [Installation and Usage](#installation-and-usage)
 - [API](#api)
   - [Modifiers](#modifiers)
     - [Treating line break characters](#treating-line-break-characters)
@@ -29,6 +30,7 @@ and subsequent validation an easier job.
   - [Custom transformations](#custom-transformations)
   - [Getting sanitized value](#getting-sanitized-value)
   - [Utility methods](#utility-methods)
+- [Development and Publishing](#development-and-publishing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- *generated with [DocToc](https://github.com/thlorenz/doctoc)* -->
@@ -79,7 +81,7 @@ transformers with an optional parameter to replace spaces
 Let's assume the input received from a user is
 `" \n\r\n \u200B\u200C\u200D\u2060 \t\uFEFF\xA0 Sensible text \n Line 2 \n\r\n\r\r "`
 
-Here are issues worth attention and optimization:
+Here are some issues worth attention and optimization:
 
 - it contains problematic whitespaces
 - it contains sequences of 2 or more whitespaces
@@ -118,6 +120,33 @@ s10n(input)
   (strips leading and trailing spaces in each line of a multiline input)
 - trims leading and trailing whitespaces
 - trims leading and trailing line breaks
+
+[ [^^ Back to TOC ^^](#table-of-contents) ]
+
+## Installation and Usage
+
+### Option1. Install as a project dependency
+
+Run `npm i s10n` to add **s10n** as a dependency to your project.
+
+In your app import s10n by either of the methods:
+
+- `const s10n = require("s10n")` -- node style
+- `import s10n from "s10n"` -- module import style
+
+### Option 2. Link directly to the html file
+
+Pick an appropriate version on
+[jsdelivr CDN](https://www.jsdelivr.com/package/npm/s10n)
+and add to the html file. Example:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/s10n@latest/dist/s10n.min.js"></script>
+```
+
+### Usage
+
+Check the examples across this documentation for the use cases.
 
 [ [^^ Back to TOC ^^](#table-of-contents) ]
 
@@ -324,7 +353,7 @@ defaults to the flags as specified in [`_regexp`](#utility-methods) ("gu").
 Examples:
 
 ```javascript
-let input = "ABCDabcd01239 _-.,(abcd){defg}[hijk]";
+let input1 = "ABCDabcd01239 _-.,(abcd){defg}[hijk]";
 s10n(input1).keepOnlyCharset("}{][)(").value; // "(){}[]"
 s10n(input1).keepOnlyRegexp(/\{.*?\}|\[.*?\]|\(.*?\)/gu).value; // "(abcd){defg}[hijk]"
 
@@ -381,7 +410,7 @@ s10n(input1)
   .toLowerCase().value; // 20fe
 s10n(input1)
   .keepHexDigits()
-  .toLowerCase().value; // 20fE
+  .toLowerCase().value; // 20fe
 
 let input2 = "  Some text  \n Yet basically valid \n\n  ";
 
@@ -399,10 +428,12 @@ s10n(input2)
 Semantic sanitizers implement semantically meaningful
 yet heavily opinionated sanitization rules for particular use cases.
 
-- **`keepOnlyEmailPopularCharset(commonUse = false)`** - by default keeps a charset
-  as per rfc ( `` A-Za-z0-9_\\-@.+)( \":;<>\\\\,\\[\\]}{!#$%&'*/=?^`|~ ``);
-  pass `true` if a lesser (more common) charset ( `A-Za-z0-9_\-@.+)(` )
-  fits better your particular use case
+- **`keepOnlyEmailPopularCharset()`** - keeps
+  only `A-Za-z0-9_@.-`
+- **`keepOnlyEmailExtendedCharset()`** - keeps
+  only `A-Za-z0-9_@.+)(-`
+- **`keepOnlyEmailRfcCharset()`** - keeps
+  only charset as per rfc ( `` A-Za-z0-9_\\-@.+)( \":;<>\\\\,\\[\\]}{!#$%&'*/=?^`|~ ``)
 - **`keepUsername(whiteSpaceReplacement = "")`** - keeps
   only `a-zA-Z0-9_-`, whitespaces are stripped or
   are merged and replaced with `whiteSpaceReplacement` if any
@@ -413,12 +444,14 @@ yet heavily opinionated sanitization rules for particular use cases.
 Examples:
 
 ```javascript
-let input = "  UsEr   #$%\"' NaMe +  5_6-9 @ .Co.Uk  ";
+let input = "  UsEr   #$%\"' NaMe +  (5_6-9) @ .Co.Uk  ";
 
-s10n(input).keepOnlyEmailPopularCharset(true).value; // "UsErNaMe+5_6-9@.co.uk"
+s10n(input).keepOnlyEmailPopularCharset().value; // "UsErNaMe5_6-9@.Co.Uk"
+s10n(input).keepOnlyEmailExtendedCharset().value; // "UsErNaMe+(5_6-9)@.Co.Uk"
+s10n(input).keepOnlyEmailRfcCharset().value; // "UsEr#$%\"'NaMe+(5_6-9)@.Co.Uk"
 s10n(input)
-  .keepOnlyEmailPopularCharset(true)
-  .toLowerCase().value; // "username+5_6-9@.co.uk"
+  .keepOnlyEmailPopularCharset()
+  .toLowerCase().value; // "username5_6-9@.co.uk"
 
 s10n(input).keepUsername().value; // "UsErNaMe5_6-9CoUk"
 s10n(input).keepUsernameLC().value; // "username5_6-9couk"
