@@ -121,6 +121,8 @@ s10n(input)
 - trims leading and trailing whitespaces
 - trims leading and trailing line breaks
 
+Explore [sandbox](https://oleksiyrudenko.github.io/s10n/sandbox/) for more use cases.
+
 [ [^^ Back to TOC ^^](#table-of-contents) ]
 
 ## Installation and Usage
@@ -147,6 +149,8 @@ and add to the html file. Example:
 ### Usage
 
 Check the examples across this documentation for the use cases.
+
+Use [sandbox](https://oleksiyrudenko.github.io/s10n/sandbox/) to play around.
 
 [ [^^ Back to TOC ^^](#table-of-contents) ]
 

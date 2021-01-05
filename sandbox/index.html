@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>s10n sandbox</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Overpass%20Mono">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.4/css/all.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/default-beauty.css@0.9.1/default-beauty.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/s10n@latest/dist/s10n.min.js"></script>
+</head>
+<body>
+<div class="content">
+  <header>
+    <h1><strong>s10n</strong> sandbox</h1>
+    <div style="margin-left: auto;"><a href="https://github.com/OleksiyRudenko/s10n" target="_blank">Fork on GitHub</a></div>
+  </header>
+  <main>
+    <div class="switch" title="Emulate BackEnd behaviour">
+      <input id="be-emulation" type="checkbox" checked>
+      <label for="be-emulation"></label>
+      <span>Backend emulation</span>
+    </div>
+    <hr>
+    <div id="user-input-presets-container" class="modal-container">
+      <div id="user-input-presets" class="modal"></div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div><button id="user-input-presets-activator" type="button" class="presets-button">Pick a preset</button> or type in either of the boxes below</div>
+        <p id="user-input-preset-escaped" class="monospaced escaped-text text-output wrapable"></p>
+        <input id="user-input-text" class="monospaced user-input-text" type="text" size="50" placeholder="Single line input">
+        <textarea id="user-input-textarea" class="editable monospaced" rows="8" cols="48" placeholder="Multiline input"></textarea>
+        <!-- div contenteditable="true" class="editable monospaced single-line"><span>abcd efg </span></div>
+        <div contenteditable="true" class="editable monospaced multiline"><span>abcd
+
+        def</span></div -->
+        <p class="note">Turn BackEnd emulation off to enable text inputs</p>
+      </div>
+      <div class="column">
+        <div>s10n(&hellip;).<select id="sanitization-chains" class="styled-select"></select>.value</div>
+        <!-- input type="text" list="cars" />
+        <datalist id="cars">
+          <option>Volvo</option>
+          <option>Saab</option>
+          <option>Mercedes</option>
+          <option>Audi</option>
+        </datalist -->
+        <!--  add
+              - sanitization chain builder
+              - s10n methods params customization -->
+        <hr class="full-width">
+        <div id="text-output-container" class="text-output-container">
+          <pre id="text-output" class="monospaced highlighted-text text-output"></pre>
+          <div><pre id="text-output-escaped" class="monospaced escaped-text text-output"></pre></div>
+        </div>
+        <hr class="full-width">
+        <div>
+          <pre id="textarea-output" class="monospaced highlighted-text"></pre>
+          <div><pre id="textarea-output-escaped" class="monospaced escaped-text text-output"></pre></div>
+        </div>
+      </div>
+    </div>
+    <p>By default a preset value is inserted as a text input and textarea form elements value.
+      Then those values get sanitized.
+      This means that the browser has a chance to conduct basic sanitation
+      (e.g. strips newlines for text input).
+      This however depends on a particular browser in use.
+    </p>
+    <p>
+      In BackEnd Emulation mode text inputs are updated as well,
+      yet presets are fed to <strong>s10n</strong> directly.
+      This emulates situation when a user sends form data to the
+      backend directly, by means other than the browser form submission
+      mechanisms.
+    </p>
+  </main>
+</div>
+<footer>
+  <p>
+    <a href="https://github.com/OleksiyRudenko/s10n" target="_blank"><strong>s10n</strong> on GitHub</a>
+  </p>
+  <p>
+    <small>
+      Styled with
+      <a href="https://github.com/necolas/normalize.css" target="_blank">
+        normalize.css <i class="fab fa-github-square"></i>
+      </a>
+      and
+      <a href="https://github.com/OleksiyRudenko/default-beauty.css" target="_blank">
+        <i class="fas fa-heart"></i> Default-Beauty.css <i class="fab fa-github-square"></i>
+      </a>
+    </small>
+  </p>
+</footer>
+<script type="module" src="./user-input-examples.js"></script>
+<script type="module" src="./sanitization-chains.js"></script>
+<script type="module" src="./script.js"></script>
+</body>
+</html>
