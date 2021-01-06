@@ -154,10 +154,18 @@ describe("custom transformers/sanitizers", () => {
     ).toBe("cool");
   });
   it("`extend` should add a normally callable sanitization method", () => {
-    s10n.extend("makeCool", function() {
-      this.replace(this._regexp("o\\s+", "gi"), "0");
-      return this;
-    });
+    s10n.extend(
+      "makeCool",
+      /**
+       * Makes S10n core value cooo000ool
+       * @name S10n#makeCool
+       * @returns {S10n}
+       */
+      function() {
+        this.replace(this._regexp("o\\s+", "gi"), "0");
+        return this;
+      }
+    );
     expect(s10n("coO\x0A o\t l").makeCool().value).toBe("co00l");
   });
 });

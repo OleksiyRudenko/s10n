@@ -14,10 +14,10 @@ Major project files are described below
 
 Library core codebase explained:
 
-- `s10n.js` - library entry point
+- `s10n.js` - library entry point, exports sanitization
+  chain initiating function
+- `s10n.class.js` - `S10n` class comprising core functionality
 - `s10n.test.js` - tests
-- other files are components to a `s10n` object
-  grouped by designation
 
 ## Contributing
 

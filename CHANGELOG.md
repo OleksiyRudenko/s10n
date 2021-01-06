@@ -9,6 +9,14 @@ and this project adheres to
 
 <!-- ## [Unreleased] -->
 
+## [0.2.0] - 2021-01-12
+
+### Changed
+
+- Aggregate core methods into S10n class to minimize
+  possible effect on performance and to ensure consistent
+  type annotations
+
 ## [0.1.2] - 2021-01-04
 
 ### Changed
@@ -90,6 +98,7 @@ and this project adheres to
 
 <!-- [unreleased]: https://github.com/OleksiyRudenko/s10n/compare/v0.1.0...HEAD -->
 
+[0.2.0]: https://github.com/OleksiyRudenko/s10n/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/OleksiyRudenko/s10n/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/OleksiyRudenko/s10n/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/OleksiyRudenko/s10n/compare/v0.0.0...v0.1.0
