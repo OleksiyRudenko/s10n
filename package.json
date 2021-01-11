@@ -3,6 +3,14 @@
   "version": "0.1.2",
   "description": "Basic user input sanitization library",
   "main": "./dist/s10n.cjs.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/s10n.cjs.js",
+      "script": "./dist/s10n.browser.js",
+      "default": "./dist/s10n.esm.js"
+    }
+  },
   "module": "./dist/s10n.esm.js",
   "jsdelivr": "./dist/s10n.min.js",
   "unpkg": "./dist/s10n.min.js",
@@ -33,6 +41,8 @@
   "keywords": [
     "javascript",
     "sanitization",
+    "sanitation",
+    "user input",
     "library"
   ],
   "author": "Oleksiy Rudenko <oleksiy.rudenko@gmail.com>",
